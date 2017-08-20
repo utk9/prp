@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func GetRelativePath(current string, target string) string {
+func getRelativePath(current string, target string) string {
 	targetSlice := strings.Split(strings.Trim(target, "/"), "/")
 	currentSlice := strings.Split(strings.Trim(current, "/"), "/")
 
@@ -59,7 +59,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	relativePath := GetRelativePath(current, target)
+	relativePath := getRelativePath(current, target)
 
 	fmt.Println(relativePath)
 }
