@@ -35,9 +35,6 @@ func GetRelativePath(current string, target string) string {
 		buffer.WriteString("../")
 	}
 
-	fmt.Println(buffer.String())
-	fmt.Println(branchIdx)
-
 	for i := branchIdx; i < len(targetSlice); i++ {
 		buffer.WriteString(targetSlice[i])
 		buffer.WriteString("/")
