@@ -3,7 +3,50 @@ package main
 import (
 	"os"
 	"fmt"
+	"strings"
+	"bytes"
 )
+
+
+func GetRelativePath(current string, target string) string {
+	targetSlice := strings.Split(strings.Trim(target, "/"), "/")
+	currentSlice := strings.Split(strings.Trim(current, "/"), "/")
+
+	branchIdx:=0
+
+	var minLen int
+	if (len(currentSlice) < len(targetSlice)) {
+		minLen = len(currentSlice)
+	} else {
+		minLen = len(targetSlice)
+	}
+
+	for ; branchIdx<minLen ; {
+		if (currentSlice[branchIdx] != targetSlice[branchIdx]) {
+			break
+		}
+		branchIdx++
+	}
+
+	var buffer bytes.Buffer
+
+	buffer.WriteString("./")
+
+	for i := branchIdx; i<len(currentSlice); i++ {
+		buffer.WriteString("../")
+	}
+
+	fmt.Println(buffer.String())
+	fmt.Println(branchIdx)
+
+	for i := branchIdx; i<len(targetSlice); i++ {
+		buffer.WriteString(targetSlice[i])
+		buffer.WriteString("/")
+	}
+
+	return strings.TrimRight(buffer.String(), "/")
+
+}
 
 func main() {
 	if (len(os.Args) < 2) {
@@ -20,7 +63,7 @@ func main() {
         os.Exit(1)
     }
 
-	fmt.Println(target)
-	fmt.Println(current)
+    relativePath := GetRelativePath(current, target)
 
+    fmt.Println(relativePath)
 }
