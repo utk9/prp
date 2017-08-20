@@ -1,28 +1,27 @@
 package main
 
 import (
-	"os"
-	"fmt"
-	"strings"
 	"bytes"
+	"fmt"
+	"os"
+	"strings"
 )
-
 
 func GetRelativePath(current string, target string) string {
 	targetSlice := strings.Split(strings.Trim(target, "/"), "/")
 	currentSlice := strings.Split(strings.Trim(current, "/"), "/")
 
-	branchIdx:=0
+	branchIdx := 0
 
 	var minLen int
-	if (len(currentSlice) < len(targetSlice)) {
+	if len(currentSlice) < len(targetSlice) {
 		minLen = len(currentSlice)
 	} else {
 		minLen = len(targetSlice)
 	}
 
-	for ; branchIdx<minLen ; {
-		if (currentSlice[branchIdx] != targetSlice[branchIdx]) {
+	for branchIdx < minLen {
+		if currentSlice[branchIdx] != targetSlice[branchIdx] {
 			break
 		}
 		branchIdx++
@@ -32,14 +31,14 @@ func GetRelativePath(current string, target string) string {
 
 	buffer.WriteString("./")
 
-	for i := branchIdx; i<len(currentSlice); i++ {
+	for i := branchIdx; i < len(currentSlice); i++ {
 		buffer.WriteString("../")
 	}
 
 	fmt.Println(buffer.String())
 	fmt.Println(branchIdx)
 
-	for i := branchIdx; i<len(targetSlice); i++ {
+	for i := branchIdx; i < len(targetSlice); i++ {
 		buffer.WriteString(targetSlice[i])
 		buffer.WriteString("/")
 	}
@@ -49,7 +48,7 @@ func GetRelativePath(current string, target string) string {
 }
 
 func main() {
-	if (len(os.Args) < 2) {
+	if len(os.Args) < 2 {
 		fmt.Println("Must provide absolute path to target file/directory")
 		os.Exit(1)
 	}
@@ -59,11 +58,11 @@ func main() {
 	current, err := os.Getwd()
 
 	if err != nil {
-        fmt.Println(err)
-        os.Exit(1)
-    }
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-    relativePath := GetRelativePath(current, target)
+	relativePath := GetRelativePath(current, target)
 
-    fmt.Println(relativePath)
+	fmt.Println(relativePath)
 }
