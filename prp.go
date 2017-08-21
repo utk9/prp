@@ -50,21 +50,30 @@ func main() {
 		os.Exit(1)
 	}
 
-	target := os.Args[1]
+	var to string
+	var from string
 
-	current, err := os.Getwd()
+	if len(os.Args) < 3 {
+		to = os.Args[1]
+		var err error
+		from, err = os.Getwd()
 
-	if err != nil {
-		fmt.Println(err)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	} else {
+		from = os.Args[1]
+		to = os.Args[2]
+	}
+
+
+	if from[0] != '/' || to[0] != '/' {
+		fmt.Println("Must provide absolute path(s) (from root directory)")
 		os.Exit(1)
 	}
 
-	if target[0] != '/' {
-		fmt.Println("Must provide absolute path (from root directory)")
-		os.Exit(1)
-	}
-
-	relativePath := getRelativePath(current, target)
+	relativePath := getRelativePath(from, to)
 
 	fmt.Println(relativePath)
 }
