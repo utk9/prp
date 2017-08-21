@@ -59,6 +59,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if target[0] != '/' {
+		fmt.Println("Must provide absolute path (from root directory)")
+		os.Exit(1)
+	}
+
 	relativePath := getRelativePath(current, target)
 
 	fmt.Println(relativePath)
