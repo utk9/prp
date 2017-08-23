@@ -16,7 +16,7 @@ You can give `prp` either one or two arguments. If two are provided, it uses the
 first as `from` and the second as `to`. If one if provided, it uses the
 given path as `to` and the current working directory (from `pwd`) as `from`.
 
-###Example
+### Example
 
 ```
 /dir1/
